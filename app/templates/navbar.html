@@ -12,6 +12,14 @@
         <a class="nav-link" href="https://www.utrgv.edu/">Website1</a>
         <a class="nav-link" href="https://cityofedinburg.com/">Webiste2</a>
         <a class="nav-link disabled" aria-disabled="true">Website3</a>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">New Account</a>
+        {% endif %}
+        </li>
       </div>
     </div>
   </div>
