@@ -6,6 +6,38 @@
 
 {% if user.is_authenticated %}
 <h1> Hello World </h1>
+<h1> Active Records</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Role</th>
+        <th scope="col">Created at</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% if bankaccount %}
+        
+        {% for bankaccount in bankaccounts %}
+        <tr>
+            <td>{{ bankaccount.owner_name }}
+            <td>{{ bankaccount.owner_lastname }}</td>
+            <td>{{ bankaccount.email }}</td>
+            <td>{{ bankaccount.accountType }}</td>
+            <td>{{ bankaccount.balance }}</td>
+            
+        </tr>
+        {% endfor %}
+    {% endif %}
+    
+    </tbody>
+  </table>
+
+
 
 
 {% else %}

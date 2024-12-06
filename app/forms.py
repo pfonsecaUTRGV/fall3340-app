@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import bankaccount
 
 class SignUpForm(UserCreationForm):
 	email = forms.EmailField(label="Email",widget=forms.TextInput(attrs={'class':'form-control','placeholder':'somethin@domain.com'}))
@@ -28,3 +29,17 @@ class SignUpForm(UserCreationForm):
 		self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
 		self.fields['password2'].label = ''
 		self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'	
+
+
+class addBankAccount(forms.ModelForm):
+	account_no = forms.CharField(required = True,widget=forms.widgets.TextInput(attrs={"placeholder":"Account Number","class":"form-control"}),label="" )
+	owner_name = forms.CharField(required = True,widget=forms.widgets.TextInput(attrs={"placeholder":"First Name","class":"form-control"}),label="" )
+	owner_lastname = forms.CharField(required = True,widget=forms.widgets.TextInput(attrs={"placeholder":"Last Name","class":"form-control"}),label="" )
+	email = forms.CharField(required = True,widget=forms.widgets.TextInput(attrs={"placeholder":"Email","class":"form-control"}),label="" )
+	accountType = forms.CharField(required = True,widget=forms.widgets.TextInput(attrs={"placeholder":"Account type","class":"form-control"}),label="" )
+	securitycode = forms.CharField(required = True,widget=forms.widgets.TextInput(attrs={"placeholder":"Security Code","class":"form-control"}),label="" )
+	balance = forms.CharField(required = True,widget=forms.widgets.TextInput(attrs={"placeholder":"Balance","class":"form-control"}),label="" )
+
+	class Meta:
+		model = bankaccount
+		exclude = ("user",)

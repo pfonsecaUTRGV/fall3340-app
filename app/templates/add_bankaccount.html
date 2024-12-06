@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> Add New Bank Account </h1>
+<form method="POST" action="{% url 'add_bankaccount' %}">
+  	{% csrf_token %}
+  	{{ forms.as_p }}
+
+ <button type="submit" class="btn btn-secondary">Add</button>
+</form>
+
+
+
+{% endblock %}

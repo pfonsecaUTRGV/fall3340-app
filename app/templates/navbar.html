@@ -14,6 +14,8 @@
         <a class="nav-link disabled" aria-disabled="true">Website3</a>
         {% if user.is_authenticated %}
         <li class="nav-item">
+          <a class="nav-link" href="{% url 'add_bankaccount' %}">New Account</a>
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
         {% else %}
         <li class="nav-item">

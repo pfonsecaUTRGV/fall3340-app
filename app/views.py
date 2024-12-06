@@ -1,22 +1,26 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages 
-from .forms import SignUpForm
+from .forms import SignUpForm, addBankAccount
+from .models import bankaccount 
+
 
 def home(request):
-		if request.method == "POST":
-			username = request.POST['username']
-			password = request.POST['password']
-			user = authenticate(request, username = username, password=password)
-			if user is not None:
-				login(request, user)
-				messages.success(request, "Login Successful")
-				return redirect('home')
-			else:
-				messages.success(request, "Login Error")
-				return redirect('home')
+	bankaccounts = bankaccount.objects.all()
+
+	if request.method == "POST":
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(request, username = username, password=password)
+		if user is not None:
+			login(request, user)
+			messages.success(request, "Login Successful")
+			return redirect('home')
 		else:
-			return render(request, 'home.html',{})
+			messages.success(request, "Login Error")
+			return redirect('home')
+	else:
+		return render(request, 'home.html',{'bankaccounts':bankaccounts})
 
 
 #def login_user(request):
@@ -43,3 +47,16 @@ def register_user(request):
 		return render(request,'register.html',{'form':form})
 
 	return render(request,'register.html',{})
+
+def add_bankaccount(request):
+	form = addBankAccount(request.POST or None)
+	if request.user.is_authenticated:
+		if request.method == "POST":
+			if form.is_valid():
+				add_bankaccount = form.save()
+				messages.success(request,"New Account Created")
+				return redirect('home')
+
+		return render(request, 'add_BankAccount.html', {'forms':form})
+	else:
+		return redirect('home')
